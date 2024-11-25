@@ -1,9 +1,6 @@
 package com.prakem.prakem.dto;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -11,20 +8,18 @@ import lombok.Data;
 @AllArgsConstructor
 public class UserDTO {
 
-    @NotBlank(message = "O email não pode estar vazio")
-    @Size(max = 254, message = "O email deve ter no máximo 254 caracteres")
-    @Email(message = "O email deve ser válido")
+    @Schema(description = "Email Address", example = "user@example.com", nullable = false)
     private String email;
 
-    @NotBlank(message = "A senha não pode estar vazia")
-    @Size(min = 8, max = 128, message = "A senha deve ter entre 8 e 128 caracteres")
+    @Schema(description = "User Password with a minimum length of 8 characters", nullable = false)
     private String password;
 
-    @NotBlank(message = "O nome completo não pode estar vazio")
-    @Size(max = 100, message = "O nome completo deve ter no máximo 100 caracteres")
+    @Schema(description = "User's full name", nullable = false)
     private String fullname;
 
-    private Byte[] photo;
+    @Schema(description = "User photo in byte array", type = "byte[]", format = "byte[]", nullable = true, example = "iVBORw0KGgoAAAANSUhEUgAAAAUA")
+    private byte[] photo;
 
+    @Schema(description = "Indicates whether the user is enabled", defaultValue = "true", nullable = true)
     private Boolean enabled = true;
 }

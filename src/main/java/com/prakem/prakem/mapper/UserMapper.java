@@ -3,9 +3,11 @@ package com.prakem.prakem.mapper;
 import com.prakem.prakem.dto.UserDTO;
 import com.prakem.prakem.entity.User;
 
+import java.io.IOException;
+
 public class UserMapper {
 
-    public static User toEntity(UserDTO dto) {
+    public static User toEntity(UserDTO dto) throws IOException {
         return new User(
             dto.getEmail(),
             dto.getPassword(),

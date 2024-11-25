@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 
@@ -26,7 +27,7 @@ public class User {
     @NonNull
     private String fullname;
 
-    private Byte[] photo;
+    private byte[] photo;
 
     private Boolean enabled = true;
 
@@ -36,7 +37,7 @@ public class User {
     @LastModifiedDate
     private LocalDateTime lastModifiedDate;
 
-    public User(@NonNull String email, @NonNull String password, @NonNull String fullname, Byte[] photo, Boolean enabled){
+    public User(@NonNull String email, @NonNull String password, @NonNull String fullname, byte[] photo, Boolean enabled){
         this.email = email;
         this.password = password;
         this.fullname = fullname;
