@@ -41,10 +41,10 @@ public class User {
 
     public User(@NonNull String email, @NonNull String password, @NonNull String fullname, byte[] photo, Boolean enabled){
         this.email = email;
-        this.password = password;
         this.fullname = fullname;
         this.photo = photo;
         this.enabled = enabled;
+        setPassword(password);
     }
 
     public void setPassword(String password) {

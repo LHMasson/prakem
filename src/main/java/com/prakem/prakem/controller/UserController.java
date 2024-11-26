@@ -55,10 +55,8 @@ public class UserController {
     @PostMapping("/create")
     public ResponseEntity<Object> createUser(@Valid @RequestBody UserDTO userDTO) {
         try {
-            User user = UserMapper.toEntity(userDTO);
-            User savedUser = userService.createUser(user);
-            UserDTO savedUserDTO = UserMapper.toDTO(savedUser);
-            return ResponseEntity.status(HttpStatus.CREATED).body(savedUserDTO);
+            UserDTO response = userService.createUser(userDTO);
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }

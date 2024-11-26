@@ -1,9 +1,15 @@
 package com.prakem.prakem.service;
 
+import com.prakem.prakem.dto.UserDTO;
 import com.prakem.prakem.entity.User;
+import com.prakem.prakem.mapper.UserMapper;
 import com.prakem.prakem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
+
+import static com.prakem.prakem.mapper.UserMapper.toEntity;
 
 @Service
 public class UserService {
@@ -14,7 +20,9 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User createUser(User user) {
-        return userRepository.save(user);
+    public UserDTO createUser(UserDTO user) {
+        User newUser = UserMapper.toEntity(user);
+        User savedUser = userRepository.save(newUser);
+        return UserMapper.toDTO(savedUser);
     }
 }

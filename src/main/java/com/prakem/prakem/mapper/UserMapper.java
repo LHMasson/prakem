@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class UserMapper {
 
-    public static User toEntity(UserDTO dto) throws IOException {
+    public static User toEntity(UserDTO dto) {
         return new User(
             dto.getEmail(),
             dto.getPassword(),
