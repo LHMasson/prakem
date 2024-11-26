@@ -1,14 +1,15 @@
 package com.prakem.prakem.entity;
 
 import com.mongodb.lang.NonNull;
+import com.prakem.prakem.util.Encrypter;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.web.multipart.MultipartFile;
 
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 
 @Data
@@ -30,6 +31,7 @@ public class User {
     private byte[] photo;
 
     private Boolean enabled = true;
+    private String salt;
 
     @CreatedDate
     private LocalDateTime createdDate;
@@ -43,5 +45,22 @@ public class User {
         this.fullname = fullname;
         this.photo = photo;
         this.enabled = enabled;
+    }
+
+    public void setPassword(String password) {
+        this.salt = Encrypter.generateSalt();
+        try {
+            this.password = Encrypter.hashPassword(password, this.salt);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("Error while setting password", e);
+        }
+    }
+
+    public boolean verifyPassword(String password) {
+        try {
+            return Encrypter.verifyPassword(password, this.salt, this.password);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("Error while verifying password", e);
+        }
     }
 }
