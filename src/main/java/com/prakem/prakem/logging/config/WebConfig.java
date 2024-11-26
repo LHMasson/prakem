@@ -1,6 +1,6 @@
-package com.prakem.logging.config;
+package com.prakem.prakem.logging.config;
 
-import com.prakem.logging.interceptor.LoggingInterceptor;
+import com.prakem.prakem.logging.interceptor.LoggingInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

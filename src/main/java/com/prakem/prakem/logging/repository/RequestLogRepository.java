@@ -1,6 +1,6 @@
-package com.prakem.logging.repository;
+package com.prakem.prakem.logging.repository;
 
-import com.prakem.logging.entity.RequestLog;
+import com.prakem.prakem.logging.entity.RequestLog;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

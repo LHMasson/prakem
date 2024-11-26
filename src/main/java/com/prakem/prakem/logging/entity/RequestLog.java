@@ -1,4 +1,4 @@
-package com.prakem.logging.entity;
+package com.prakem.prakem.logging.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

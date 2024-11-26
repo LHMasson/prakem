@@ -1,7 +1,9 @@
-package com.prakem.logging.interceptor;
+package com.prakem.prakem.logging.interceptor;
 
-import com.prakem.logging.entity.RequestLog;
-import com.prakem.logging.service.RequestLogService;
+import com.prakem.prakem.logging.entity.RequestLog;
+import com.prakem.prakem.logging.service.RequestLogService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -17,6 +19,7 @@ import java.util.concurrent.CompletableFuture;
 @Component
 public class LoggingInterceptor implements HandlerInterceptor {
 
+    private static final Logger logger = LoggerFactory.getLogger(LoggingInterceptor.class);
     private final RequestLogService requestLogService;
 
     @Autowired
@@ -47,9 +50,9 @@ public class LoggingInterceptor implements HandlerInterceptor {
                 log.setResponseTime(LocalDateTime.now());
                 long startTime = (Long) request.getAttribute("startTime");
                 log.setResponseTimeMs(System.currentTimeMillis() - startTime);
-                requestLogService.save(log);
+                requestLogService.save(log); // Ensure this is async as well
             } catch (Exception e) {
-                e.printStackTrace();
+                logger.error("Error while logging request", e); // Log the error
             }
         });
     }

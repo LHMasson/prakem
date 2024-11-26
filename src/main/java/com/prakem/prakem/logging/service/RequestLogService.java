@@ -1,7 +1,7 @@
-package com.prakem.logging.service;
+package com.prakem.prakem.logging.service;
 
-import com.prakem.logging.entity.RequestLog;
-import com.prakem.logging.repository.RequestLogRepository;
+import com.prakem.prakem.logging.entity.RequestLog;
+import com.prakem.prakem.logging.repository.RequestLogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
