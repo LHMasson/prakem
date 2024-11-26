@@ -42,7 +42,7 @@ public class LoggingInterceptor implements HandlerInterceptor {
                 log.setHttpMethod(request.getMethod());
                 log.setUrl(request.getRequestURI());
                 log.setRequestBody(getRequestBody(request));
-                log.setResponseBody("<Captured in ResponseWrapper if needed>");
+                log.setResponseBody("<Not Implemented>");
                 log.setStatusCode(response.getStatus());
                 log.setClientIp(request.getRemoteAddr());
                 log.setHeaders(getHeaders(request));
@@ -50,9 +50,9 @@ public class LoggingInterceptor implements HandlerInterceptor {
                 log.setResponseTime(LocalDateTime.now());
                 long startTime = (Long) request.getAttribute("startTime");
                 log.setResponseTimeMs(System.currentTimeMillis() - startTime);
-                requestLogService.save(log); // Ensure this is async as well
+                requestLogService.save(log);
             } catch (Exception e) {
-                logger.error("Error while logging request", e); // Log the error
+                logger.error("Error while logging request", e);
             }
         });
     }
