@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import static com.prakem.prakem.mapper.UserMapper.toEntity;
 
@@ -25,7 +26,8 @@ public class UserService {
 
         String email = userDTO.getEmail();
 
-        if (userRepository.findByEmail(email) != null) {
+        Optional<User> existingUser = Optional.ofNullable(userRepository.findByEmail(email));
+        if (existingUser.isPresent()) {
             throw new EmailAlreadyExistsException("The email " + email + " is already in use");
         }
 

@@ -49,16 +49,7 @@ public class UserController {
     })
     @PostMapping("/create")
     public ResponseEntity<Object> createUser(@Valid @RequestBody UserDTO userDTO) {
-        try {
-            UserDTO response = userService.createUser(userDTO);
-            return ResponseEntity.status(HttpStatus.CREATED).body(response);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        }
-    }
-
-    @GetMapping("/create")
-    public String createUser(){
-        return "OK";
+        UserDTO response = userService.createUser(userDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }
