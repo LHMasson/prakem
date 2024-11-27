@@ -17,7 +17,7 @@ public class JwtService {
     public JwtService(JwtConfig jwtConfig){
         this.secretKey = jwtConfig.getSecretKey();
         this.AccessTokenExpiration = jwtConfig.getAccessTokenExpiration();
-        this.refreshExpirationTime = jwtConfig.getRefreshTokenExpiration();;
+        this.refreshExpirationTime = jwtConfig.getRefreshTokenExpiration();
     }
 
 
