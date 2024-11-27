@@ -36,20 +36,31 @@ public class LoggingInterceptor implements HandlerInterceptor {
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+        // Clone request attributes to avoid using recycled objects
+        LocalDateTime requestTime = (LocalDateTime) request.getAttribute("requestTime");
+        Long startTime = (Long) request.getAttribute("startTime");
+        String httpMethod = request.getMethod();
+        String url = request.getRequestURI();
+        String clientIp = request.getRemoteAddr();
+        String headers = getHeaders(request);
+
         CompletableFuture.runAsync(() -> {
             try {
                 RequestLog log = new RequestLog();
-                log.setHttpMethod(request.getMethod());
-                log.setUrl(request.getRequestURI());
+                log.setHttpMethod(httpMethod);
+                log.setUrl(url);
                 log.setRequestBody(getRequestBody(request));
                 log.setResponseBody("<Not Implemented>");
                 log.setStatusCode(response.getStatus());
-                log.setClientIp(request.getRemoteAddr());
-                log.setHeaders(getHeaders(request));
-                log.setRequestTime((LocalDateTime) request.getAttribute("requestTime"));
+                log.setClientIp(clientIp);
+                log.setHeaders(headers);
+                log.setRequestTime(requestTime);
                 log.setResponseTime(LocalDateTime.now());
-                long startTime = (Long) request.getAttribute("startTime");
-                log.setResponseTimeMs(System.currentTimeMillis() - startTime);
+
+                if (startTime != null) {
+                    log.setResponseTimeMs(System.currentTimeMillis() - startTime);
+                }
+
                 requestLogService.save(log);
             } catch (Exception e) {
                 logger.error("Error while logging request", e);
@@ -81,6 +92,9 @@ public class LoggingInterceptor implements HandlerInterceptor {
                         .append("\": \"")
                         .append(request.getHeader(headerName))
                         .append("\", ");
+            }
+            if (headers.length() > 1) {
+                headers.setLength(headers.length() - 2); // Remove trailing comma and space
             }
             headers.append("}");
             return headers.toString();

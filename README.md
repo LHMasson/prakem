@@ -15,7 +15,6 @@ Este projeto tem como objetivo implementar um backend completo utilizando Java c
   * Data
   * Security
   * Session
-  * Doc Api
 
 # Estrutura do Projeto
 

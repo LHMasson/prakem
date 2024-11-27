@@ -2,6 +2,7 @@ package com.prakem.prakem.service;
 
 import com.prakem.prakem.dto.UserDTO;
 import com.prakem.prakem.entity.User;
+import com.prakem.prakem.exceptions.EmailAlreadyExistsException;
 import com.prakem.prakem.mapper.UserMapper;
 import com.prakem.prakem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,15 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public UserDTO createUser(UserDTO user) {
-        User newUser = UserMapper.toEntity(user);
+    public UserDTO createUser(UserDTO userDTO) {
+
+        String email = userDTO.getEmail();
+
+        if (userRepository.findByEmail(email) != null) {
+            throw new EmailAlreadyExistsException("The email " + email + " is already in use");
+        }
+
+        User newUser = UserMapper.toEntity(userDTO);
         User savedUser = userRepository.save(newUser);
         return UserMapper.toDTO(savedUser);
     }
