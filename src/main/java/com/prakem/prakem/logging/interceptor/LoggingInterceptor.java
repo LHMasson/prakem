@@ -10,6 +10,8 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.web.servlet.ModelAndView;
+
 import java.io.BufferedReader;
 import java.time.LocalDateTime;
 import java.util.Enumeration;
@@ -35,23 +37,27 @@ public class LoggingInterceptor implements HandlerInterceptor {
     }
 
     @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
-        // Clone request attributes to avoid using recycled objects
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) {
+        logRequestAndResponse(request, response);
+    }
+
+    private void logRequestAndResponse(HttpServletRequest request, HttpServletResponse response) {
         LocalDateTime requestTime = (LocalDateTime) request.getAttribute("requestTime");
         Long startTime = (Long) request.getAttribute("startTime");
         String httpMethod = request.getMethod();
         String url = request.getRequestURI();
         String clientIp = request.getRemoteAddr();
         String headers = getHeaders(request);
+        int statusCode = response.getStatus();
 
         CompletableFuture.runAsync(() -> {
             try {
                 RequestLog log = new RequestLog();
                 log.setHttpMethod(httpMethod);
                 log.setUrl(url);
-                log.setRequestBody(getRequestBody(request));
+                log.setRequestBody("<Not Implemented>");
                 log.setResponseBody("<Not Implemented>");
-                log.setStatusCode(response.getStatus());
+                log.setStatusCode(statusCode);
                 log.setClientIp(clientIp);
                 log.setHeaders(headers);
                 log.setRequestTime(requestTime);
@@ -66,15 +72,6 @@ public class LoggingInterceptor implements HandlerInterceptor {
                 logger.error("Error while logging request", e);
             }
         });
-    }
-
-    private String getRequestBody(HttpServletRequest request) {
-        try {
-            BufferedReader reader = request.getReader();
-            return reader.lines().collect(Collectors.joining(System.lineSeparator()));
-        } catch (Exception e) {
-            return "<Failed to capture request body>";
-        }
     }
 
     private String getHeaders(HttpServletRequest request) {
