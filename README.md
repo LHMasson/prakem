@@ -49,7 +49,7 @@ src/main/java/com/prakem/prakem
 ├── mapper
 │   └── UserMapper.java            # Mapeamento entre entidade e DTO de usuário
 ├── repository
-│   └── UserRepository.java        # Repositório JPA para usuários
+│   └── UserRepository.java        # Repositório MongoDB para usuários
 ├── service
 │   └── UserService.java           # Regras de negócio relacionadas a usuários
 ├── util
