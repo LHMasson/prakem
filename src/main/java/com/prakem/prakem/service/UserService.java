@@ -5,13 +5,11 @@ import com.prakem.prakem.entity.User;
 import com.prakem.prakem.exceptions.EmailAlreadyExistsException;
 import com.prakem.prakem.mapper.UserMapper;
 import com.prakem.prakem.repository.UserRepository;
+import com.prakem.prakem.util.PasswordValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.Optional;
-
-import static com.prakem.prakem.mapper.UserMapper.toEntity;
 
 @Service
 public class UserService {
@@ -26,11 +24,12 @@ public class UserService {
 
         String email = userDTO.getEmail();
 
+        PasswordValidator.validate(userDTO.getPassword());
+
         Optional<User> existingUser = Optional.ofNullable(userRepository.findByEmail(email));
         if (existingUser.isPresent()) {
             throw new EmailAlreadyExistsException("The email " + email + " is already in use");
         }
-
         User newUser = UserMapper.toEntity(userDTO);
         User savedUser = userRepository.save(newUser);
         return UserMapper.toDTO(savedUser);
