@@ -64,9 +64,7 @@ src/main/java/com/prakem/prakem
 - Clone o repositório:
 - git clone https://github.com/LHMasson/prakem.git
 - Instale as dependências:
-- mvn clean install 
-- Configure o arquivo application.properties para conectar-se ao MongoDB:
-- spring.data.mongodb.uri=mongodb://localhost:27017/seu_banco_de_dados 
+- mvn clean install
 - Execute o arquivo PrakemApplication no caminho src/main/java/com.prakem.prakem/PrakemApplication
 
 # Melhorias Futuras
