@@ -60,6 +60,7 @@ src/main/java/com/prakem/prakem
 
 # Como Executar o Projeto
 
+- Execute o comando no powershell como administrador, substituindo a URL de conexão com o banco para sua URL: [System.Environment]::SetEnvironmentVariable("MONGODB_URI", "MONGO_CUSTOM_URL", "Machine");
 - Clone o repositório:
 - git clone https://github.com/LHMasson/prakem.git
 - Instale as dependências:
