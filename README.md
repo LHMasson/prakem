@@ -60,7 +60,8 @@ src/main/java/com/prakem/prakem
 
 # Como Executar o Projeto
 
-- Execute o comando no powershell como administrador, substituindo a URL de conexão com o banco para sua URL: [System.Environment]::SetEnvironmentVariable("MONGODB_URI", "MONGO_CUSTOM_URL", "Machine");
+- Execute o comando no powershell como administrador, substituindo MONGO_CUSTOM_URL com sua URL de conexão com o banco: [System.Environment]::SetEnvironmentVariable("MONGODB_URI", "mongodb+srv://<user>:<password>@<databaseurl>/<document>?retryWrites=true&w=majority", "Machine");
+- Execute o comando no powershell como administrador, substituindo YOUR_CUSTOM_SECRET com sua chave para criptografar os JWTs: [System.Environment]::SetEnvironmentVariable("PRAKEM_KEY", "YOUR_CUSTOM_SECRET", "Machine");
 - Clone o repositório:
 - git clone https://github.com/LHMasson/prakem.git
 - Instale as dependências:
