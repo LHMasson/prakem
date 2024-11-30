@@ -1,15 +1,16 @@
 package com.prakem.prakem.dto;
 
+import com.prakem.prakem.enumerators.Role;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.data.mongodb.core.index.Indexed;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
@@ -38,5 +39,14 @@ public class UserDTO {
     private Boolean enabled = true;
 
     @Schema(description = "Set of roles assigned to the user, e.g., ['USER', 'ADMIN']", example = "[\"USER\", \"ADMIN\"]", nullable = true, defaultValue = "[USER]")
-    private Set<String> roles = new HashSet<>(Set.of("USER"));;
+    private Set<String> roles;
+
+    public Set<Role> getRoles() {
+        if (roles == null || roles.isEmpty()) {
+            return Set.of(Role.USER);
+        }
+        return roles.stream()
+                .map(Role::fromString)
+                .collect(Collectors.toSet());
+    }
 }

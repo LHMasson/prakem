@@ -2,8 +2,9 @@ package com.prakem.prakem.mapper;
 
 import com.prakem.prakem.dto.UserDTO;
 import com.prakem.prakem.entity.User;
+import com.prakem.prakem.enumerators.Role;
 
-import java.io.IOException;
+import java.util.stream.Collectors;
 
 public class UserMapper {
 
@@ -25,7 +26,7 @@ public class UserMapper {
             user.getFullname(),
             user.getPhoto(),
             user.getEnabled(),
-            user.getRoles()
+            user.getRoles().stream().map(Role::name).collect(Collectors.toSet())
         );
     }
 }
