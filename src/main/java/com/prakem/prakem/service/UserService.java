@@ -2,7 +2,7 @@ package com.prakem.prakem.service;
 
 import com.prakem.prakem.dto.UserDTO;
 import com.prakem.prakem.entity.User;
-import com.prakem.prakem.exceptions.EmailAlreadyExistsException;
+import com.prakem.prakem.exception.EmailAlreadyExistsException;
 import com.prakem.prakem.mapper.UserMapper;
 import com.prakem.prakem.repository.UserRepository;
 import com.prakem.prakem.util.PasswordValidator;

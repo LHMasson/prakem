@@ -1,7 +1,7 @@
 package com.prakem.prakem.entity;
 
 import com.mongodb.lang.NonNull;
-import com.prakem.prakem.enumerators.Role;
+import com.prakem.prakem.enumerator.Role;
 import com.prakem.prakem.util.Encrypter;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;

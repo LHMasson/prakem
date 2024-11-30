@@ -1,4 +1,6 @@
-package com.prakem.prakem.enumerators;
+package com.prakem.prakem.enumerator;
+
+import com.prakem.prakem.exception.InvalidRoleException;
 
 public enum Role {
     ADMIN,
@@ -10,6 +12,6 @@ public enum Role {
                 return role;
             }
         }
-        throw new IllegalArgumentException("Invalid role: " + value);
+        throw new InvalidRoleException("Invalid role: " + value);
     }
 }

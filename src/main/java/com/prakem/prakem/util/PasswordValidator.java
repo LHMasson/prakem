@@ -1,6 +1,6 @@
 package com.prakem.prakem.util;
 
-import com.prakem.prakem.exceptions.PasswordValidationException;
+import com.prakem.prakem.exception.PasswordValidationException;
 
 import java.util.regex.Pattern;
 

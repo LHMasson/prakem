@@ -2,7 +2,7 @@ package com.prakem.prakem.mapper;
 
 import com.prakem.prakem.dto.UserDTO;
 import com.prakem.prakem.entity.User;
-import com.prakem.prakem.enumerators.Role;
+import com.prakem.prakem.enumerator.Role;
 
 import java.util.stream.Collectors;
 
