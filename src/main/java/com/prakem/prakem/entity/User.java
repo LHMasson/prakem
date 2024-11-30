@@ -11,6 +11,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Data
 @Document(collection = "user")
@@ -33,17 +36,20 @@ public class User {
     private Boolean enabled = true;
     private String salt;
 
+    private Set<String> roles = new HashSet<>(Set.of("USER"));;
+
     @CreatedDate
     private LocalDateTime createdDate;
 
     @LastModifiedDate
     private LocalDateTime lastModifiedDate;
 
-    public User(@NonNull String email, @NonNull String password, @NonNull String fullname, byte[] photo, Boolean enabled){
+    public User(@NonNull String email, @NonNull String password, @NonNull String fullname, byte[] photo, Boolean enabled, Set<String> roles){
         this.email = email;
         this.fullname = fullname;
         this.photo = photo;
         this.enabled = enabled;
+        this.roles = roles;
         setPassword(password);
     }
 

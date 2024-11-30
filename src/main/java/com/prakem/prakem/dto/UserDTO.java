@@ -8,6 +8,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.data.mongodb.core.index.Indexed;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Data
 @AllArgsConstructor
 public class UserDTO {
@@ -33,4 +36,7 @@ public class UserDTO {
 
     @Schema(description = "Indicates whether the user is enabled", defaultValue = "true", nullable = true)
     private Boolean enabled = true;
+
+    @Schema(description = "Set of roles assigned to the user, e.g., ['USER', 'ADMIN']", example = "[\"USER\", \"ADMIN\"]", nullable = true, defaultValue = "[USER]")
+    private Set<String> roles = new HashSet<>(Set.of("USER"));;
 }

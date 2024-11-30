@@ -13,7 +13,8 @@ public class UserMapper {
             dto.getPassword(),
             dto.getFullname(),
             dto.getPhoto(),
-            dto.getEnabled()
+            dto.getEnabled(),
+            dto.getRoles()
         );
     }
 
@@ -23,7 +24,8 @@ public class UserMapper {
             user.getPassword(),
             user.getFullname(),
             user.getPhoto(),
-            user.getEnabled()
+            user.getEnabled(),
+            user.getRoles()
         );
     }
 }
