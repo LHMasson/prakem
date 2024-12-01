@@ -26,7 +26,7 @@ public class UserService {
 
         Encrypter.validatePasswordComplexity(userDTO.getPassword());
 
-        if (userExists(email)) {
+        if (userRepository.existsByEmail(email)) {
             throw new EmailAlreadyExistsException("The email " + email + " is already in use");
         }
         User newUser = UserMapper.toEntity(userDTO);
@@ -35,7 +35,6 @@ public class UserService {
     }
 
     public boolean userExists(String email) {
-        Optional<User> existingUser = Optional.ofNullable(userRepository.findByEmail(email));
-        return existingUser.isPresent();
+        return userRepository.existsByEmail(email);
     }
 }
