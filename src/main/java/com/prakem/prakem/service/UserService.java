@@ -5,7 +5,7 @@ import com.prakem.prakem.entity.User;
 import com.prakem.prakem.exception.EmailAlreadyExistsException;
 import com.prakem.prakem.mapper.UserMapper;
 import com.prakem.prakem.repository.UserRepository;
-import com.prakem.prakem.util.PasswordValidator;
+import com.prakem.prakem.util.Encrypter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +24,7 @@ public class UserService {
 
         String email = userDTO.getEmail();
 
-        PasswordValidator.validate(userDTO.getPassword());
+        Encrypter.validatePasswordComplexity(userDTO.getPassword());
 
         if (userExists(email)) {
             throw new EmailAlreadyExistsException("The email " + email + " is already in use");

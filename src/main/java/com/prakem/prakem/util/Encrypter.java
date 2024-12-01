@@ -1,10 +1,13 @@
 package com.prakem.prakem.util;
 
+import com.prakem.prakem.exception.PasswordValidationException;
+
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Base64;
+import java.util.regex.Pattern;
 
 public class Encrypter {
 
@@ -12,6 +15,8 @@ public class Encrypter {
     private static final int ITERATIONS = 65536;
     private static final int KEY_LENGTH = 256;
     private static final String ALGORITHM = "PBKDF2WithHmacSHA256";
+
+    private static final String PASSWORD_PATTERN = "(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[#$@!%&*?])[A-Za-z\\d#$@!%&*?]{8,30}";
 
     /**
      * Generates a random salt for password hashing.
@@ -57,5 +62,19 @@ public class Encrypter {
     public static boolean verifyPassword(String password, String salt, String hashedPassword) throws NoSuchAlgorithmException {
         String hashToVerify = hashPassword(password, salt);
         return hashToVerify.equals(hashedPassword);
+    }
+
+    /**
+     * Veifies if the provided password matches the minimum complexity
+     *
+     * @param password The plain-text password to validate.
+     */
+    public static void validatePasswordComplexity(String password) {
+        if (!password.matches(PASSWORD_PATTERN)) {
+            throw new PasswordValidationException("Password must contain at least one lowercase letter, one uppercase letter, one number, and one special character");
+        }
+        if (password.contains(" ")) {
+            throw new PasswordValidationException("The password cannot contain spaces");
+        }
     }
 }
