@@ -52,4 +52,9 @@ public class UserController {
         UserDTO response = userService.createUser(userDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+
+    @GetMapping("/exists")
+    public boolean exists(@RequestParam String email) {
+        return userService.userExists(email);
+    }
 }

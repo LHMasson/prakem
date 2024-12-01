@@ -23,7 +23,7 @@ public class SecurityConfiguration {
                 .cors(withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req -> req
-                        .requestMatchers("/user/create").permitAll()
+                        .requestMatchers("/user/create", "/user/exists").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS));

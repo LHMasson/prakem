@@ -26,12 +26,16 @@ public class UserService {
 
         PasswordValidator.validate(userDTO.getPassword());
 
-        Optional<User> existingUser = Optional.ofNullable(userRepository.findByEmail(email));
-        if (existingUser.isPresent()) {
+        if (userExists(email)) {
             throw new EmailAlreadyExistsException("The email " + email + " is already in use");
         }
         User newUser = UserMapper.toEntity(userDTO);
         User savedUser = userRepository.save(newUser);
         return UserMapper.toDTO(savedUser);
+    }
+
+    public boolean userExists(String email) {
+        Optional<User> existingUser = Optional.ofNullable(userRepository.findByEmail(email));
+        return existingUser.isPresent();
     }
 }
