@@ -28,7 +28,7 @@ src/main/java/com/prakem/prakem
 │   ├── AsyncConfig.java            # Configuração para métodos assíncronos
 │   ├── CorsConfig.java             # Configuração de permissões CORS
 │   ├── SecurityConfiguration.java  # Configurações de segurança (JWT, autenticação)
-│   └── SwaggerConfig.java          # Configuração para documentação Swagger
+│   └── JwtConfig.java              # Configuração do JWT
 ├── controller
 │   └── UserController.java        # Endpoints para gerenciar usuários
 ├── dto
@@ -54,13 +54,13 @@ src/main/java/com/prakem/prakem
 │   └── UserService.java           # Regras de negócio relacionadas a usuários
 ├── util
 │   ├── Encrypter.java            # Utilitário para criptografar dados
-│   └── JwtUtil.java              # Utilitário para manipulação de tokens JWT
+│   └── PasswordValidator.java              # Utilitário para manipulação de tokens JWT
 └── MainFile                       # Classe principal para inicializar o projeto
 ```
 
 # Como Executar o Projeto
 
-- Execute o comando no powershell como administrador, substituindo MONGO_CUSTOM_URL com sua URL de conexão com o banco: [System.Environment]::SetEnvironmentVariable("MONGODB_URI", "mongodb+srv://<user>:<password>@<databaseurl>/<document>?retryWrites=true&w=majority", "Machine");
+- Execute o comando no powershell como administrador, substituindo MONGO_CUSTOM_URL com sua URL de conexão com o banco: [System.Environment]::SetEnvironmentVariable("MONGODB_URI", "mongodb+srv://usuario:senha@urlbanco/nomecluster?retryWrites=true&w=majority", "Machine");
 - Execute o comando no powershell como administrador, substituindo YOUR_CUSTOM_SECRET com sua chave para criptografar os JWTs: [System.Environment]::SetEnvironmentVariable("PRAKEM_KEY", "YOUR_CUSTOM_SECRET", "Machine");
 - Clone o repositório:
 - git clone https://github.com/LHMasson/prakem.git
