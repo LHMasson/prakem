@@ -65,7 +65,7 @@ public class Encrypter {
     }
 
     /**
-     * Veifies if the provided password matches the minimum complexity
+     * Verifies if the provided password matches the minimum complexity
      *
      * @param password The plain-text password to validate.
      */
