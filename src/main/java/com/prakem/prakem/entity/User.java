@@ -34,6 +34,10 @@ public class User {
     private byte[] photo;
 
     private Boolean enabled = true;
+
+    private Integer loginTries = 0;
+    private Boolean loginBlocked = false;
+
     private String salt;
 
     private Set<Role> roles = new HashSet<>();
