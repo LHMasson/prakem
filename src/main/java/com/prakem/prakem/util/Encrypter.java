@@ -16,7 +16,7 @@ public class Encrypter {
     private static final int KEY_LENGTH = 256;
     private static final String ALGORITHM = "PBKDF2WithHmacSHA256";
 
-    private static final String PASSWORD_PATTERN = "(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[#$@!%&*?])[A-Za-z\\d#$@!%&*?]{8,30}";
+    private static final String PASSWORD_PATTERN = "(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[#$@!%&*?])[A-Za-z\\d#$@!%&*?]{8,}";
 
     /**
      * Generates a random salt for password hashing.
@@ -61,7 +61,7 @@ public class Encrypter {
      */
     public static boolean verifyPassword(String password, String salt, String hashedPassword) throws NoSuchAlgorithmException {
         String hashToVerify = hashPassword(password, salt);
-        return hashToVerify.equals(hashedPassword);
+        return secureEquals(hashToVerify, hashedPassword);
     }
 
     /**
@@ -70,11 +70,27 @@ public class Encrypter {
      * @param password The plain-text password to validate.
      */
     public static void validatePasswordComplexity(String password) {
-        if (!password.matches(PASSWORD_PATTERN)) {
-            throw new PasswordValidationException("Password must contain at least one lowercase letter, one uppercase letter, one number, and one special character");
+        if (!password.matches(PASSWORD_PATTERN) || password.contains(" ")) {
+            throw new PasswordValidationException(
+                    "Password must have minimum 8 characters long, include at least one uppercase letter, one lowercase letter, one number, and one special character, and must not contain spaces."
+            );
         }
-        if (password.contains(" ")) {
-            throw new PasswordValidationException("The password cannot contain spaces");
+    }
+
+    /**
+     * Function that implements constant time comparison
+     * https://www.huy.rocks/toylisp/02-07-2022-security-timing-attack-and-constant-time-compare-algorithm - Reference Link
+     *
+     * @param a String to compare to b
+     * @param b String to compare to a
+     * @return True if Strings are bite a bite equals
+     */
+    private static boolean secureEquals(String a, String b) {
+        if (a.length() != b.length()) return false;
+        int result = 0;
+        for (int i = 0; i < a.length(); i++) {
+            result |= a.charAt(i) ^ b.charAt(i);
         }
+        return result == 0;
     }
 }
