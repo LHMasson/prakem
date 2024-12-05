@@ -4,6 +4,7 @@ import com.mongodb.lang.NonNull;
 import com.prakem.prakem.enumerator.Role;
 import com.prakem.prakem.util.Encrypter;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -16,6 +17,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Data
+@NoArgsConstructor
 @Document(collection = "user")
 public class User {
     @Id
