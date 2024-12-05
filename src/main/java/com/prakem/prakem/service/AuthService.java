@@ -1,6 +1,7 @@
 package com.prakem.prakem.service;
 
 import com.prakem.prakem.entity.User;
+import com.prakem.prakem.exception.UserNotExistsException;
 import com.prakem.prakem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ public class AuthService {
     public boolean authenticate(String email, String password){
         User user = userRepository.findByEmail(email);
         if (user == null) {
-           return false;
+           throw new UserNotExistsException("User not found.");
         }
 
         return user.verifyPassword(password);
